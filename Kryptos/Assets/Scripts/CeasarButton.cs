@@ -7,6 +7,17 @@ public class CeasarButton : MonoBehaviour {
 
     public Text caesarButtonText;
 
+    private void Update()
+    {
+        if (caesarButtonText.gameObject.activeInHierarchy)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))

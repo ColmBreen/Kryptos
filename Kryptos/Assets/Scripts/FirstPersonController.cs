@@ -9,6 +9,7 @@ public class FirstPersonController : MonoBehaviour
     public float mouseSensitivity = 5.0f;
     public float jumpSpeed = 20;
     public bool isMenuActive = false;
+    public bool isDecrytping = false;
 
     float verticalRotation = 0;
     public float upDownRange = 60.0f;
