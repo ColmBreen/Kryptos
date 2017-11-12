@@ -7,6 +7,7 @@ using UnityEngine;
 public class Decrypt : MonoBehaviour {
 
     public Text cText;
+    public bool isDeciphered = false;
 
     private int shift, i = 0;
     private string test;
@@ -17,11 +18,27 @@ public class Decrypt : MonoBehaviour {
         {
             shift =  1;
             cText.text = CDecrypt(cText.text, shift);
+            if(cText.text == "HELLO WORLD")
+            {
+                isDeciphered = true;
+            }
+            else
+            {
+                isDeciphered = false;
+            }
         }
         else if (GameObject.Find("Shift").GetComponent<MoveShift>().isRight && GameObject.Find("Shift").GetComponent<MoveShift>().isStart && other.gameObject.name != "Letter")
         {
             shift = 1;
             cText.text = CEncrypt(cText.text, shift);
+            if (cText.text == "HELLO WORLD")
+            {
+                isDeciphered = true;
+            }
+            else
+            {
+                isDeciphered = false;
+            }
         }
     }
 
