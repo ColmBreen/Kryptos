@@ -20,13 +20,15 @@ public class PauseMenuController : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == false)
+        if (Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == false && 
+            !GameObject.Find("ButtonStand").GetComponent<CeasarButton>().caesarButtonText.gameObject.activeInHierarchy)
         {
             Cursor.visible = true;
             canvas.gameObject.SetActive(true);
             GameObject.Find("Player").GetComponent<FirstPersonController>().isMenuActive = true;
         }
-        else if(Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == true)
+        else if(Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == true &&
+            !GameObject.Find("ButtonStand").GetComponent<CeasarButton>().caesarButtonText.gameObject.activeInHierarchy)
         {
             Cursor.visible = false;
             canvas.gameObject.SetActive(false);

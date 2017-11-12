@@ -15,17 +15,20 @@ public class MoveShift : MonoBehaviour {
 	
 	void Update ()
     {
-        if (Input.GetKeyDown("right"))
+        if (GameObject.Find("Player").GetComponent<FirstPersonController>().isDecrytping)
         {
-            rb.MovePosition(transform.position - vec);
-            isRight = true;
-            isStart = true;
-        }
-        else if (Input.GetKeyDown("left"))
-        {
-            rb.MovePosition(transform.position + vec);
-            isRight = false;
-            isStart = true;
+            if (Input.GetKeyDown("right"))
+            {
+                rb.MovePosition(transform.position - vec);
+                isRight = true;
+                isStart = true;
+            }
+            else if (Input.GetKeyDown("left"))
+            {
+                rb.MovePosition(transform.position + vec);
+                isRight = false;
+                isStart = true;
+            }
         }
 
     }

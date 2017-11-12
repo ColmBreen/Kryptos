@@ -28,7 +28,7 @@ public class FirstPersonController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if(!isMenuActive)
+        if(!isMenuActive && !isDecrytping)
         {
             //Rotation
             float rotLeftRight = Input.GetAxis("Mouse X") * mouseSensitivity;
