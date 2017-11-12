@@ -10,19 +10,24 @@ public class CeasarButton : MonoBehaviour {
 
     private void Update()
     {
-        if (caesarButtonText.gameObject.activeInHierarchy)
+        if (caesarButtonText.gameObject.activeInHierarchy || caesarText.gameObject.activeInHierarchy)
         {
             if (Input.GetMouseButtonDown(0))
             {
                 GameObject.Find("Player").GetComponent<FirstPersonController>().isDecrytping = true;
                 caesarText.gameObject.SetActive(true);
-            }
-            else if (Input.GetKeyDown(KeyCode.Escape) && caesarButtonText.gameObject.activeInHierarchy)
-            {
                 caesarButtonText.gameObject.SetActive(false);
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape) && caesarText.gameObject.activeInHierarchy)
+            {
                 GameObject.Find("Player").GetComponent<FirstPersonController>().isDecrytping = false;
                 caesarText.gameObject.SetActive(false);
             }
+        }
+
+        if (caesarText.gameObject.activeInHierarchy)
+        {
+            caesarButtonText.gameObject.SetActive(false);
         }
     }
 

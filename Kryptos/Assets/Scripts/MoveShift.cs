@@ -30,6 +30,5 @@ public class MoveShift : MonoBehaviour {
                 isStart = true;
             }
         }
-
     }
 }
