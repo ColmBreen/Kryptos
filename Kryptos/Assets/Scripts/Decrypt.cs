@@ -9,7 +9,7 @@ public class Decrypt : MonoBehaviour {
     public Text cText;
     public bool isDeciphered = false;
 
-    private int shift, i = 0;
+    private int shift;
     private string test;
 
     void OnTriggerEnter(Collider other)

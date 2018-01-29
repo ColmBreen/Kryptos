@@ -9,7 +9,8 @@ public class FirstPersonController : MonoBehaviour
     public float mouseSensitivity = 5.0f;
     public float jumpSpeed = 20;
     public bool isMenuActive = false;
-    public bool isDecrytping = false;
+    public bool isDecryptingCaesar = false;
+    public bool isDecryptingVigenere = false;
 
     float verticalRotation = 0;
     public float upDownRange = 60.0f;
@@ -28,7 +29,7 @@ public class FirstPersonController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if(!isMenuActive && !isDecrytping)
+        if(!isMenuActive && !isDecryptingCaesar)
         {
             //Rotation
             float rotLeftRight = Input.GetAxis("Mouse X") * mouseSensitivity;
