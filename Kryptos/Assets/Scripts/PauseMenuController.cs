@@ -9,6 +9,8 @@ public class PauseMenuController : MonoBehaviour {
     public Transform canvas;
     public Button resume;
     public Button exit;
+    public Text caesarText;
+    public Text VigenereText;
 
     private void Start()
     {
@@ -20,15 +22,20 @@ public class PauseMenuController : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == false && 
-            !GameObject.Find("CaesarButton").GetComponent<CeasarButton>().caesarText.gameObject.activeInHierarchy)
+        if(Input.GetKeyDown(KeyCode.Escape) && caesarText.gameObject.activeInHierarchy)
+        {
+            caesarText.gameObject.SetActive(false);
+        }
+        else if ((Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == false) && 
+            (!caesarText.gameObject.activeInHierarchy) && (VigenereText.gameObject.activeInHierarchy == false))       
         {
             Cursor.visible = true;
+            Debug.Log("Pause");
             canvas.gameObject.SetActive(true);
             GameObject.Find("Player").GetComponent<FirstPersonController>().isMenuActive = true;
         }
         else if(Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == true &&
-            !GameObject.Find("CaesarButton").GetComponent<CeasarButton>().caesarText.gameObject.activeInHierarchy)
+            !GameObject.Find("CaesarButton").GetComponent<CipherButton>().caesarText.gameObject.activeInHierarchy)
         {
             Cursor.visible = false;
             canvas.gameObject.SetActive(false);
