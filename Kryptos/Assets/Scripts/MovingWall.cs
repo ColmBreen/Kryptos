@@ -16,12 +16,12 @@ public class MovingWall : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        if (GameObject.Find("Shift").GetComponent<Decrypt>().isDeciphered && isMoved == false)
+        if (GameObject.Find("Shift").GetComponent<DecryptCaesar>().isDeciphered && isMoved == false)
         {
             rb.MovePosition(transform.position + vec);
             isMoved = true;
         }
-        else if (!GameObject.Find("Shift").GetComponent<Decrypt>().isDeciphered && isMoved == true)
+        else if (!GameObject.Find("Shift").GetComponent<DecryptCaesar>().isDeciphered && isMoved == true)
         {
             rb.MovePosition(transform.position - vec);
             isMoved = false;

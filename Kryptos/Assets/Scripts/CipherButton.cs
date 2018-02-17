@@ -9,6 +9,7 @@ public class CipherButton : MonoBehaviour {
     public Text caesarText;
     public Text VigenereButtonText;
     public Text VigenereText;
+    public InputField inputF;
     public Canvas pause;
 
     private void Update()
@@ -17,13 +18,13 @@ public class CipherButton : MonoBehaviour {
         {
             GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingCaesar = true;
             caesarText.gameObject.SetActive(true);
-            Debug.Log("Active");
             caesarButtonText.gameObject.SetActive(false);
         }
         else if (Input.GetMouseButtonDown(0) && (VigenereButtonText.gameObject.activeInHierarchy || VigenereText.gameObject.activeInHierarchy) && (!pause.gameObject.activeInHierarchy))
         {
             GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere = true;
             VigenereText.gameObject.SetActive(true);
+            inputF.gameObject.SetActive(true);
             VigenereButtonText.gameObject.SetActive(false);
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && caesarText.gameObject.activeInHierarchy && (!pause.gameObject.activeInHierarchy))
@@ -34,7 +35,6 @@ public class CipherButton : MonoBehaviour {
         else if (Input.GetKeyDown(KeyCode.Escape) && VigenereText.gameObject.activeInHierarchy && (!pause.gameObject.activeInHierarchy))
         {
             GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere = false;
-            VigenereText.gameObject.SetActive(false);
             VigenereButtonText.gameObject.SetActive(true);
         }
     }

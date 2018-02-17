@@ -4,13 +4,12 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class Decrypt : MonoBehaviour {
+public class DecryptCaesar : MonoBehaviour {
 
     public Text cText;
     public bool isDeciphered = false;
 
     private int shift;
-    private string test;
 
     void OnTriggerEnter(Collider other)
     {
