@@ -31,6 +31,7 @@ public class PauseMenuController : MonoBehaviour {
         {
             VigenereText.gameObject.SetActive(false);
             inputF.gameObject.SetActive(false);
+            Cursor.visible = false;
         }
         else if ((Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == false) && 
             (!caesarText.gameObject.activeInHierarchy) && (!VigenereText.gameObject.activeInHierarchy))       

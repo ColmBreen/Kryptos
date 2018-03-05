@@ -23,6 +23,7 @@ public class CipherButton : MonoBehaviour {
         else if (Input.GetMouseButtonDown(0) && (VigenereButtonText.gameObject.activeInHierarchy || VigenereText.gameObject.activeInHierarchy) && (!pause.gameObject.activeInHierarchy))
         {
             GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere = true;
+            Cursor.visible = true;
             VigenereText.gameObject.SetActive(true);
             inputF.gameObject.SetActive(true);
             VigenereButtonText.gameObject.SetActive(false);
