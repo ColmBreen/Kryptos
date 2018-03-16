@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour {
     public void PlayButton()
     {
         //Loads level if play is clicked
-        SceneManager.LoadScene("Caesar");
+        SceneManager.LoadScene("Level0");
     }
 
     public void ExitButton()
