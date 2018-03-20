@@ -13,7 +13,7 @@ public class DoorController : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) && doorText.gameObject.activeInHierarchy && this.name == "Door")
         {
-            SceneManager.LoadScene("Caesar");
+            SceneManager.LoadScene("Level1");
         }
     }
 

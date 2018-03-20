@@ -14,29 +14,38 @@ public class CipherButton : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && (caesarButtonText.gameObject.activeInHierarchy) && (!pause.gameObject.activeInHierarchy))
+        if (caesarButtonText.gameObject.activeInHierarchy || caesarText.gameObject.activeInHierarchy)
         {
-            GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingCaesar = true;
-            caesarText.gameObject.SetActive(true);
-            caesarButtonText.gameObject.SetActive(false);
+            if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy))
+            {
+                GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingCaesar = true;
+                caesarText.gameObject.SetActive(true);
+                caesarButtonText.gameObject.SetActive(false);
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape) && (!pause.gameObject.activeInHierarchy))
+            {
+                GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingCaesar = false;
+                caesarButtonText.gameObject.SetActive(true);
+                caesarText.gameObject.SetActive(false);
+            }
         }
-        else if (Input.GetMouseButtonDown(0) && (VigenereButtonText.gameObject.activeInHierarchy || VigenereText.gameObject.activeInHierarchy) && (!pause.gameObject.activeInHierarchy))
+        else if(VigenereButtonText.gameObject.activeInHierarchy || VigenereText.gameObject.activeInHierarchy)
         {
-            GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere = true;
-            Cursor.visible = true;
-            VigenereText.gameObject.SetActive(true);
-            inputF.gameObject.SetActive(true);
-            VigenereButtonText.gameObject.SetActive(false);
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape) && caesarText.gameObject.activeInHierarchy && (!pause.gameObject.activeInHierarchy))
-        {
-            GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingCaesar = false;
-            caesarButtonText.gameObject.SetActive(true);
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape) && VigenereText.gameObject.activeInHierarchy && (!pause.gameObject.activeInHierarchy))
-        {
-            GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere = false;
-            VigenereButtonText.gameObject.SetActive(true);
+            if (Input.GetMouseButtonDown(0)  && (!pause.gameObject.activeInHierarchy))
+            {
+                GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere = true;
+                Cursor.visible = true;
+                VigenereText.gameObject.SetActive(true);
+                inputF.gameObject.SetActive(true);
+                VigenereButtonText.gameObject.SetActive(false);
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape) && VigenereText.gameObject.activeInHierarchy && (!pause.gameObject.activeInHierarchy))
+            {
+                GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere = false;
+                VigenereButtonText.gameObject.SetActive(true);
+                VigenereText.gameObject.SetActive(false);
+                inputF.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -60,6 +69,7 @@ public class CipherButton : MonoBehaviour {
             caesarText.gameObject.SetActive(false);
             VigenereButtonText.gameObject.SetActive(false);
             VigenereText.gameObject.SetActive(false);
+            inputF.gameObject.SetActive(false);
         }
     }
 }
