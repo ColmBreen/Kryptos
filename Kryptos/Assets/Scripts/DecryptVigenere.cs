@@ -72,7 +72,6 @@ public class DecryptVigenere : MonoBehaviour {
         }
         else
         {
-            //isEncrypt = false;
             return VEncrypt(cText, shift.ToUpper());
         }
            

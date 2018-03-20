@@ -41,19 +41,9 @@ public class PauseMenuController : MonoBehaviour {
                 GameObject.Find("Player").GetComponent<FirstPersonController>().isMenuActive = false;
             }
         }
-        else if (currentScene == "Caesar")
+        else if (currentScene == "Level1" || currentScene == "Level2")
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && caesarText.gameObject.activeInHierarchy)
-            {
-                caesarText.gameObject.SetActive(false);
-            }
-            else if (Input.GetKeyDown(KeyCode.Escape) && VigenereText.gameObject.activeInHierarchy)
-            {
-                VigenereText.gameObject.SetActive(false);
-                inputF.gameObject.SetActive(false);
-                Cursor.visible = false;
-            }
-            else if ((Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == false) &&
+            if ((Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == false) &&
                 (!caesarText.gameObject.activeInHierarchy) && (!VigenereText.gameObject.activeInHierarchy))
             {
                 Cursor.visible = true;

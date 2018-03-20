@@ -5,34 +5,31 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
     
     Camera mainCamera;
-    public Camera caesarCamera;
-    public Camera vigenereCamera;
+    public Camera otherCamera;
 
     void Start()
     {
         mainCamera = Camera.main;
         mainCamera.enabled = true;
-        caesarCamera.enabled = false;
-        vigenereCamera.enabled = false;
+        otherCamera.enabled = false;
     }
 
     void Update()
     {
         if (GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingCaesar) 
         {
-            caesarCamera.enabled = true;
+            otherCamera.enabled = true;
             mainCamera.enabled = false;
         }
         else if(GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere)
         {
-            vigenereCamera.enabled = true;
+            otherCamera.enabled = true;
             mainCamera.enabled = false;
         }
         else
         {
             mainCamera.enabled = true;
-            caesarCamera.enabled = false;
-            vigenereCamera.enabled = false;
+            otherCamera.enabled = false;
         }
     }
 }
