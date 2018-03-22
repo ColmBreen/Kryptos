@@ -34,6 +34,7 @@ public class CipherButton : MonoBehaviour {
             if (Input.GetMouseButtonDown(0)  && (!pause.gameObject.activeInHierarchy))
             {
                 GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere = true;
+                Debug.Log("yo");
                 Cursor.visible = true;
                 VigenereText.gameObject.SetActive(true);
                 inputF.gameObject.SetActive(true);
@@ -41,7 +42,7 @@ public class CipherButton : MonoBehaviour {
             }
             else if (Input.GetKeyDown(KeyCode.Escape) && VigenereText.gameObject.activeInHierarchy && (!pause.gameObject.activeInHierarchy))
             {
-                Debug.Log("yo");
+                Debug.Log("yo2");
                 GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere = false;
                 VigenereButtonText.gameObject.SetActive(true);
                 VigenereText.gameObject.SetActive(false);
