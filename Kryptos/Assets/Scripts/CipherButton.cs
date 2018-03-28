@@ -2,64 +2,90 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CipherButton : MonoBehaviour {
 
-    public Text caesarButtonText;
-    public Text caesarText;
-    public Text VigenereButtonText;
-    public Text VigenereText;
+    private string sceneName;
+
+    private void Start()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        sceneName = currentScene.name;
+    }
+    public int i = 0;
+    public Text ButtonText;
+    public Text cipherText;
     public InputField inputF;
     public Canvas pause;
 
     private void Update()
     {
-        if (caesarButtonText.gameObject.activeInHierarchy || caesarText.gameObject.activeInHierarchy)
+        if (sceneName == "Level1")
         {
-            if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy))
+            if (ButtonText.gameObject.activeInHierarchy || cipherText.gameObject.activeInHierarchy)
             {
-                GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingCaesar = true;
-                caesarText.gameObject.SetActive(true);
-                caesarButtonText.gameObject.SetActive(false);
-            }
-            else if (Input.GetKeyDown(KeyCode.Escape) && (!pause.gameObject.activeInHierarchy))
-            {
-                GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingCaesar = false;
-                caesarButtonText.gameObject.SetActive(true);
-                caesarText.gameObject.SetActive(false);
+                if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy))
+                {
+                    GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingCaesar = true;
+                    cipherText.gameObject.SetActive(true);
+                    ButtonText.gameObject.SetActive(false);
+                }
+                else if (Input.GetKeyDown(KeyCode.Escape) && (!pause.gameObject.activeInHierarchy))
+                {
+                    GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingCaesar = false;
+                    ButtonText.gameObject.SetActive(true);
+                    cipherText.gameObject.SetActive(false);
+                }
             }
         }
-        else if(VigenereButtonText.gameObject.activeInHierarchy || VigenereText.gameObject.activeInHierarchy)
+        else if (sceneName == "Level2")
         {
-            if (Input.GetMouseButtonDown(0)  && (!pause.gameObject.activeInHierarchy))
+            if (ButtonText.gameObject.activeInHierarchy || cipherText.gameObject.activeInHierarchy)
             {
-                GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere = true;
-                Debug.Log("yo");
-                Cursor.visible = true;
-                VigenereText.gameObject.SetActive(true);
-                inputF.gameObject.SetActive(true);
-                VigenereButtonText.gameObject.SetActive(false);
+                if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy))
+                {
+                    Debug.Log("yo " + i);
+                    i++;
+                    GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere = true;
+                    cipherText.gameObject.SetActive(true);
+                    inputF.gameObject.SetActive(true);
+                    ButtonText.gameObject.SetActive(false);
+                }
+                else if (Input.GetKeyDown(KeyCode.Escape) && cipherText.gameObject.activeInHierarchy && (!pause.gameObject.activeInHierarchy))
+                {
+                    GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere = false;
+                    ButtonText.gameObject.SetActive(true);
+                    cipherText.gameObject.SetActive(false);
+                    inputF.gameObject.SetActive(false);
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.Escape) && VigenereText.gameObject.activeInHierarchy && (!pause.gameObject.activeInHierarchy))
+        }
+        else if (sceneName == "Level3")
+        {
+            if (ButtonText.gameObject.activeInHierarchy || cipherText.gameObject.activeInHierarchy)
             {
-                Debug.Log("yo2");
-                GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere = false;
-                VigenereButtonText.gameObject.SetActive(true);
-                VigenereText.gameObject.SetActive(false);
-                inputF.gameObject.SetActive(false);
+                if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy))
+                {
+                    GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingRailFence = true;
+                    cipherText.gameObject.SetActive(true);
+                    ButtonText.gameObject.SetActive(false);
+                }
+                else if (Input.GetKeyDown(KeyCode.Escape) && cipherText.gameObject.activeInHierarchy && (!pause.gameObject.activeInHierarchy))
+                {
+                    GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingRailFence = false;
+                    ButtonText.gameObject.SetActive(true);
+                    cipherText.gameObject.SetActive(false);
+                }
             }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player") && this.name == "CaesarButton")
+        if(other.gameObject.CompareTag("Player"))
         {
-            caesarButtonText.gameObject.SetActive(true); 
-        }
-        else if(other.gameObject.CompareTag("Player") && this.name == "VigenereButton")
-        {
-            VigenereButtonText.gameObject.SetActive(true);
+            ButtonText.gameObject.SetActive(true); 
         }
     }
 
@@ -67,11 +93,10 @@ public class CipherButton : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            caesarButtonText.gameObject.SetActive(false);
-            caesarText.gameObject.SetActive(false);
-            VigenereButtonText.gameObject.SetActive(false);
-            VigenereText.gameObject.SetActive(false);
-            inputF.gameObject.SetActive(false);
+            ButtonText.gameObject.SetActive(false);
+            cipherText.gameObject.SetActive(false);
+            if(sceneName == "Level2")
+                inputF.gameObject.SetActive(false);
         }
     }
 }

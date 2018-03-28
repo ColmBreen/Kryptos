@@ -4,13 +4,14 @@ using UnityEngine;
 [RequireComponent (typeof(CharacterController))]
 public class FirstPersonController : MonoBehaviour
 {
-
+    Camera mainCamera;
     public float movementSpeed = 5.0f;
     public float mouseSensitivity = 5.0f;
     public float jumpSpeed = 20;
     public bool isMenuActive = false;
     public bool isDecryptingCaesar = false;
     public bool isDecryptingVigenere = false;
+    public bool isDecryptingRailFence = false;
 
     float verticalRotation = 0;
     public float upDownRange = 60.0f;
@@ -22,14 +23,31 @@ public class FirstPersonController : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        Screen.lockCursor = true;
+        mainCamera = Camera.main;
         characterController = GetComponent<CharacterController>();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    private void OnGUI()
     {
-        if(!isMenuActive && !isDecryptingCaesar && !isDecryptingVigenere)
+        if(isDecryptingVigenere || isMenuActive)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        
+    }
+
+    // Update is called once per frame
+    void Update ()
+    {
+        if(!isMenuActive && !isDecryptingCaesar && !isDecryptingVigenere && !isDecryptingRailFence && mainCamera.isActiveAndEnabled)
         {
             //Rotation
             float rotLeftRight = Input.GetAxis("Mouse X") * mouseSensitivity;

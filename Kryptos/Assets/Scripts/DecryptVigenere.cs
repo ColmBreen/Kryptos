@@ -8,14 +8,18 @@ public class DecryptVigenere : MonoBehaviour {
 
     public bool isEncrypt;
     public Text cipherText;
+    public GameObject closedCell, openCell;
 
     public void VCipher(string key)
     {
         isEncrypt = false;
         cipherText.text = "VTPYC LSEZS";
         string cipherT = cipherText.text.ToUpper();
-        Debug.Log(cipherT);
         cipherText.text = VDecrypt(cipherT, key);
+        if(cipherText.text == "HELLO WORLD")
+        {
+            Complete();
+        }
     }
 
     string VEncrypt(string pText, string shift)
@@ -75,5 +79,17 @@ public class DecryptVigenere : MonoBehaviour {
             return VEncrypt(cText, shift.ToUpper());
         }
            
+    }
+
+    void Complete()
+    {
+        closedCell.SetActive(false);
+        openCell.SetActive(true);
+    }
+
+    void Incomplete()
+    {
+        closedCell.SetActive(true);
+        openCell.SetActive(false);
     }
 }

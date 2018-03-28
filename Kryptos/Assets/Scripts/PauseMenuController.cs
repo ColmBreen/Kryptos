@@ -9,8 +9,7 @@ public class PauseMenuController : MonoBehaviour {
     public Transform canvas;
     public Button resume;
     public Button exit;
-    public Text caesarText;
-    public Text VigenereText;
+    public Text CipherText;
     public InputField inputF;
     string currentScene;
     
@@ -30,30 +29,26 @@ public class PauseMenuController : MonoBehaviour {
         {
             if ((Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == false))
             {
-                Cursor.visible = true;
                 canvas.gameObject.SetActive(true);
                 GameObject.Find("Player").GetComponent<FirstPersonController>().isMenuActive = true;
             }
             else if (Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == true)
             {
-                Cursor.visible = false;
                 canvas.gameObject.SetActive(false);
                 GameObject.Find("Player").GetComponent<FirstPersonController>().isMenuActive = false;
             }
         }
-        else if (currentScene == "Level1" || currentScene == "Level2")
+        else if (currentScene != "Main Menu")
         {
-            if ((Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == false) &&
-                (!caesarText.gameObject.activeInHierarchy) && (!VigenereText.gameObject.activeInHierarchy))
+            if ((Input.GetKeyDown(KeyCode.Escape) && !canvas.gameObject.activeInHierarchy) &&
+                (!CipherText.gameObject.activeInHierarchy))
             {
-                Cursor.visible = true;
                 canvas.gameObject.SetActive(true);
                 GameObject.Find("Player").GetComponent<FirstPersonController>().isMenuActive = true;
             }
-            else if (Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == true &&
-                (!caesarText.gameObject.activeInHierarchy) && (!VigenereText.gameObject.activeInHierarchy))
+            else if (Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy &&
+                (!CipherText.gameObject.activeInHierarchy))
             {
-                Cursor.visible = false;
                 canvas.gameObject.SetActive(false);
                 GameObject.Find("Player").GetComponent<FirstPersonController>().isMenuActive = false;
             }
@@ -62,7 +57,6 @@ public class PauseMenuController : MonoBehaviour {
 
     public void ResumeButton()
     {
-        Cursor.visible = false;
         canvas.gameObject.SetActive(false);
         GameObject.Find("Player").GetComponent<FirstPersonController>().isMenuActive = false;
     }

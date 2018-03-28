@@ -8,6 +8,7 @@ public class DecryptCaesar : MonoBehaviour {
 
     public Text cText;
     public bool isDeciphered = false;
+    public GameObject closedCell, openCell;
 
     private int shift;
 
@@ -19,11 +20,13 @@ public class DecryptCaesar : MonoBehaviour {
             cText.text = CDecrypt(cText.text, shift);
             if(cText.text == "HELLO WORLD")
             {
-                isDeciphered = true;
+                closedCell.SetActive(false);
+                openCell.SetActive(true);
             }
             else
             {
-                isDeciphered = false;
+                closedCell.SetActive(true);
+                openCell.SetActive(false);
             }
         }
         else if (GameObject.Find("Shift").GetComponent<MoveShift>().isRight && GameObject.Find("Shift").GetComponent<MoveShift>().isStart && other.gameObject.name != "Letter")
@@ -32,11 +35,13 @@ public class DecryptCaesar : MonoBehaviour {
             cText.text = CEncrypt(cText.text, shift);
             if (cText.text == "HELLO WORLD")
             {
-                isDeciphered = true;
+                closedCell.SetActive(false);
+                openCell.SetActive(true);
             }
             else
             {
-                isDeciphered = false;
+                closedCell.SetActive(true);
+                openCell.SetActive(false);
             }
         }
     }

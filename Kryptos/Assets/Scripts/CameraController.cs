@@ -16,12 +16,9 @@ public class CameraController : MonoBehaviour {
 
     void Update()
     {
-        if (GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingCaesar) 
-        {
-            otherCamera.enabled = true;
-            mainCamera.enabled = false;
-        }
-        else if(GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere)
+        if (GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingCaesar ||
+            GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere ||
+            GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingRailFence) 
         {
             otherCamera.enabled = true;
             mainCamera.enabled = false;
