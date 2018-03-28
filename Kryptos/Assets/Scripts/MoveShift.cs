@@ -15,7 +15,7 @@ public class MoveShift : MonoBehaviour {
 	
 	void Update ()
     {
-        if (GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingCaesar)
+        if (PlayerPrefs.GetInt("isDecryptingCaesar") == 1)
         {
             if (Input.GetKeyDown("right"))
             {

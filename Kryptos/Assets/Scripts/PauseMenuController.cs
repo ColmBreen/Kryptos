@@ -30,12 +30,12 @@ public class PauseMenuController : MonoBehaviour {
             if ((Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == false))
             {
                 canvas.gameObject.SetActive(true);
-                GameObject.Find("Player").GetComponent<FirstPersonController>().isMenuActive = true;
+                PlayerPrefs.SetInt("isMenuActive", 1);
             }
             else if (Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == true)
             {
                 canvas.gameObject.SetActive(false);
-                GameObject.Find("Player").GetComponent<FirstPersonController>().isMenuActive = false;
+                PlayerPrefs.SetInt("isMenuActive", 0);
             }
         }
         else if (currentScene != "Main Menu")
@@ -44,13 +44,13 @@ public class PauseMenuController : MonoBehaviour {
                 (!CipherText.gameObject.activeInHierarchy))
             {
                 canvas.gameObject.SetActive(true);
-                GameObject.Find("Player").GetComponent<FirstPersonController>().isMenuActive = true;
+                PlayerPrefs.SetInt("isMenuActive", 1);
             }
             else if (Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy &&
                 (!CipherText.gameObject.activeInHierarchy))
             {
                 canvas.gameObject.SetActive(false);
-                GameObject.Find("Player").GetComponent<FirstPersonController>().isMenuActive = false;
+                PlayerPrefs.SetInt("isMenuActive", 0);
             }
         }
 	}
@@ -58,7 +58,7 @@ public class PauseMenuController : MonoBehaviour {
     public void ResumeButton()
     {
         canvas.gameObject.SetActive(false);
-        GameObject.Find("Player").GetComponent<FirstPersonController>().isMenuActive = false;
+        PlayerPrefs.SetInt("isMenuActive", 0);
     }
 
     public void ExitButton()

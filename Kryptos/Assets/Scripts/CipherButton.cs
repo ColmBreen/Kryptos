@@ -27,13 +27,13 @@ public class CipherButton : MonoBehaviour {
             {
                 if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy))
                 {
-                    GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingCaesar = true;
+                    PlayerPrefs.SetInt("isDecryptingCaesar", 1);
                     cipherText.gameObject.SetActive(true);
                     ButtonText.gameObject.SetActive(false);
                 }
                 else if (Input.GetKeyDown(KeyCode.Escape) && (!pause.gameObject.activeInHierarchy))
                 {
-                    GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingCaesar = false;
+                    PlayerPrefs.SetInt("isDecryptingCaesar", 0);
                     ButtonText.gameObject.SetActive(true);
                     cipherText.gameObject.SetActive(false);
                 }
@@ -47,14 +47,14 @@ public class CipherButton : MonoBehaviour {
                 {
                     Debug.Log("yo " + i);
                     i++;
-                    GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere = true;
+                    PlayerPrefs.SetInt("isDecryptingVigenere", 1);
                     cipherText.gameObject.SetActive(true);
                     inputF.gameObject.SetActive(true);
                     ButtonText.gameObject.SetActive(false);
                 }
                 else if (Input.GetKeyDown(KeyCode.Escape) && cipherText.gameObject.activeInHierarchy && (!pause.gameObject.activeInHierarchy))
                 {
-                    GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingVigenere = false;
+                    PlayerPrefs.SetInt("isDecryptingVigenere", 0);
                     ButtonText.gameObject.SetActive(true);
                     cipherText.gameObject.SetActive(false);
                     inputF.gameObject.SetActive(false);
@@ -67,13 +67,13 @@ public class CipherButton : MonoBehaviour {
             {
                 if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy))
                 {
-                    GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingRailFence = true;
+                    PlayerPrefs.SetInt("isDecryptingRailFence", 1);
                     cipherText.gameObject.SetActive(true);
                     ButtonText.gameObject.SetActive(false);
                 }
                 else if (Input.GetKeyDown(KeyCode.Escape) && cipherText.gameObject.activeInHierarchy && (!pause.gameObject.activeInHierarchy))
                 {
-                    GameObject.Find("Player").GetComponent<FirstPersonController>().isDecryptingRailFence = false;
+                    PlayerPrefs.SetInt("isDecryptingRailFence", 0);
                     ButtonText.gameObject.SetActive(true);
                     cipherText.gameObject.SetActive(false);
                 }
