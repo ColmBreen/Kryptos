@@ -30,7 +30,7 @@ public class FirstPersonController : MonoBehaviour
 
     private void OnGUI()
     {
-        if(isDecryptingVigenere == 1 || isMenuActive == 1)
+        if(isDecryptingVigenere == 1 || isMenuActive == 1 || isDecryptingRailFence == 1)
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;

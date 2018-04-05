@@ -4,7 +4,63 @@ using UnityEngine.UI;
 using UnityEngine;
 
 public class DecryptRailFence : MonoBehaviour {
-     
+
+    public string test;
+    public float buttonWidth = 50;
+    public float buttonHeight = 50;
+    private int i, j, k;
+    private bool keyDown = true;
+    public int key = 3;
+    public GUIStyle myStyle;
+    string textEnter = "";
+
+
+    private void OnGUI()
+    {
+        if(PlayerPrefs.GetInt("isDecryptingRailFence") == 1)
+        {
+            if (test.Length % 2 != 0)
+            {
+                char[] textEntered = test.ToCharArray();
+                
+                j = 0;
+                k = -((test.Length - 1) / 2);
+                for (int i = 0; i < test.Length; i++)
+                {
+                    textEnter = GUI.TextField(new Rect((Screen.width / 2) + (k * buttonWidth), (Screen.height / 2) + (buttonHeight * j), buttonWidth, buttonHeight), textEnter, 1);
+                    if(!textEnter.Equals(""))
+                    {
+                        textEntered[i] = textEnter[0];
+                    }
+                    
+                    k++;
+                    if (j == (key - 1))
+                    {
+                        keyDown = false;
+                    }
+                    else if (j == 0 && keyDown == false)
+                    {
+                        keyDown = true;
+                    }
+
+                    if (keyDown)
+                    {
+                        j++;
+                    }
+                    else
+                    {
+                        j--;
+                    }
+                }
+                Debug.Log(textEntered.ToString());
+            }
+            else
+            {
+
+            }
+        }
+    }
+
     static void REncrypt(string plainText, int shift)
     {
         char[] pTextR = plainText.ToCharArray();

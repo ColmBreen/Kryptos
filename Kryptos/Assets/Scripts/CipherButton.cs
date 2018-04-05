@@ -75,10 +75,15 @@ public class CipherButton : MonoBehaviour {
                 {
                     PlayerPrefs.SetInt("isDecryptingRailFence", 0);
                     ButtonText.gameObject.SetActive(true);
-                    cipherText.gameObject.SetActive(false);
+                    Invoke("deactivateCipherText", 0.05f);
                 }
             }
         }
+    }
+
+    private void deactivateCipherText()
+    {
+        cipherText.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
