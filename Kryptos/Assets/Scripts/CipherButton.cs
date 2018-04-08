@@ -68,12 +68,14 @@ public class CipherButton : MonoBehaviour {
                 if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy))
                 {
                     PlayerPrefs.SetInt("isDecryptingRailFence", 1);
+                    PlayerPrefs.SetInt("isDecryptingRailFenceKey", 1);
                     cipherText.gameObject.SetActive(true);
                     ButtonText.gameObject.SetActive(false);
                 }
                 else if (Input.GetKeyDown(KeyCode.Escape) && cipherText.gameObject.activeInHierarchy && (!pause.gameObject.activeInHierarchy))
                 {
                     PlayerPrefs.SetInt("isDecryptingRailFence", 0);
+                    PlayerPrefs.SetInt("isDecryptingRailFenceKey", 0);
                     ButtonText.gameObject.SetActive(true);
                     Invoke("deactivateCipherText", 0.05f);
                 }

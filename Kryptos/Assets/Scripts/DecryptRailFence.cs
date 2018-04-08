@@ -2,107 +2,159 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class DecryptRailFence : MonoBehaviour {
 
-    public string test;
-    public float buttonWidth = 50;
-    public float buttonHeight = 50;
+    public GameObject railFenceLetter;
+    public GameObject railFenceKey;
+    public Text cipherString;
+    public Text plainString;
+    public Canvas parent;
+    private GameObject keyInput;
+    private GameObject letter;
+    
+    public float buttonWidth, buttonHeight;
     private int i, j, k;
-    private bool keyDown = true;
-    public int key = 3;
-    public GUIStyle myStyle;
-    string textEnter = "";
+    private int key;
+    private bool iskeyDown = true;
+    private bool isLettersInActive = false;
+    private char[] lettersEntered;
 
+    private bool doneKey, doneLetters = false;
 
-    private void OnGUI()
+    private void Start()
+    {
+        lettersEntered = new char[cipherString.text.Length];
+        for (int i = 0; i < cipherString.text.Length; i++)
+        {
+            lettersEntered[i] = '_';
+        }
+    }
+
+    private void Update()
+    {
+        if(PlayerPrefs.GetInt("isDecryptingRailFence") == 1 && PlayerPrefs.GetInt("isDecryptingRailFenceKey") == 1 && !doneKey)
+        {
+            keyInput = GameObject.Instantiate<GameObject>(railFenceKey);
+            keyInput.gameObject.GetComponent<InputField>().onEndEdit.AddListener(RailFenceKey);
+            keyInput.transform.SetParent(parent.transform);
+            keyInput.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+            keyInput.gameObject.name = "RailFenceKey";
+            doneKey = true;
+            Debug.Log("Instantiate Key");
+        } 
+        else if (PlayerPrefs.GetInt("isDecryptingRailFence") == 1 && !doneLetters && PlayerPrefs.GetInt("isDecryptingRailFenceKey") == 0)
+        {
+            plainString.gameObject.SetActive(true);
+            j = 0;
+            k = -((cipherString.text.Length - 1) / 2);
+            for (i = 0; i < cipherString.text.Length; i++)
+            {
+                letter = GameObject.Instantiate<GameObject>(railFenceLetter);
+                letter.gameObject.GetComponent<InputField>().onValueChanged.AddListener(RailFenceDecrypt);
+                letter.transform.SetParent(parent.transform);
+                if (cipherString.text.Length % 2 != 0)
+                    letter.GetComponent<RectTransform>().anchoredPosition = new Vector2((k * buttonWidth), (buttonHeight * j));
+                else
+                    letter.GetComponent<RectTransform>().anchoredPosition = new Vector2((k * buttonWidth), (buttonHeight * j));
+                letter.gameObject.name = "Letter " + i.ToString();
+
+                k++;
+                if (j == -(key - 1))
+                {
+                    iskeyDown = false;
+                }
+                else if (j == 0 && iskeyDown == false)
+                {
+                    iskeyDown = true;
+                }
+
+                if (iskeyDown)
+                {
+                    j--;
+                }
+                else
+                {
+                    j++;
+                }
+            }
+            doneLetters = true;
+            Debug.Log("Instantiate Letters");
+        }
+        else if(doneKey && doneLetters && PlayerPrefs.GetInt("isDecryptingRailFence") == 0 && !isLettersInActive)
+        {
+            for (int i = 0; i < cipherString.text.Length; i++)
+            {
+                GameObject.Find("Letter " + i).SetActive(false);
+            }
+            plainString.gameObject.SetActive(false);
+            isLettersInActive = true;
+            Debug.Log("Deactivate Letters");
+        }
+        else if (doneKey && doneLetters && PlayerPrefs.GetInt("isDecryptingRailFence") == 1 && isLettersInActive)
+        {
+            for (int i = 0; i < cipherString.text.Length; i++)
+            {
+                GameObject.Find("RailFence").transform.Find("Letter " + i).gameObject.SetActive(true);
+            }
+            plainString.gameObject.SetActive(true);
+            isLettersInActive = false;
+            Debug.Log("Activate Letters");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            for (i = 0; i < cipherString.text.Length; i++)
+            {
+                if (GameObject.Find("Letter " + i).GetComponent<InputField>().isFocused == true)
+                {
+                    //GameObject.Find("Letter " + i).GetComponent<InputField>().isFocused = false;
+                }
+            }
+        }
+    }
+
+    public void RailFenceKey(string enteredKey)
+    {
+        int.TryParse(enteredKey, out key);
+        PlayerPrefs.SetInt("isDecryptingRailFenceKey", 0);
+        keyInput.gameObject.SetActive(false);
+    }
+
+    public void RailFenceDecrypt(string cipherText)
     {
         if(PlayerPrefs.GetInt("isDecryptingRailFence") == 1)
         {
-            if (test.Length % 2 != 0)
+            int letterNum = 0;
+            for (i = 0; i < cipherString.text.Length; i++)
             {
-                char[] textEntered = test.ToCharArray();
-                
-                j = 0;
-                k = -((test.Length - 1) / 2);
-                for (int i = 0; i < test.Length; i++)
+                if (GameObject.Find("Letter " + i).GetComponent<InputField>().isFocused == true)
                 {
-                    textEnter = GUI.TextField(new Rect((Screen.width / 2) + (k * buttonWidth), (Screen.height / 2) + (buttonHeight * j), buttonWidth, buttonHeight), textEnter, 1);
-                    if(!textEnter.Equals(""))
-                    {
-                        textEntered[i] = textEnter[0];
-                    }
-                    
-                    k++;
-                    if (j == (key - 1))
-                    {
-                        keyDown = false;
-                    }
-                    else if (j == 0 && keyDown == false)
-                    {
-                        keyDown = true;
-                    }
-
-                    if (keyDown)
-                    {
-                        j++;
-                    }
-                    else
-                    {
-                        j--;
-                    }
+                    letterNum = i;
                 }
-                Debug.Log(textEntered.ToString());
+            }
+            if (cipherText.Length == 0)
+            {
+                lettersEntered[letterNum] = '+';
             }
             else
+                lettersEntered[letterNum] = cipherText[0];
+            string s = new string(lettersEntered);
+            plainString.text = s.ToUpper();
+            if (plainString.text == RDecrypt(cipherString.text, key))
             {
-
+                Complete();
             }
         }
     }
 
-    static void REncrypt(string plainText, int shift)
+    private void Complete()
     {
-        char[] pTextR = plainText.ToCharArray();
-        char[,] railFence = new char[shift, pTextR.Length];
-        int j = 0;
-        string temp, temp2 = "";
-        bool isDown = true;
-        for(int i = 0; i < pTextR.Length; i++)
-        {
-            railFence[j, i] = pTextR[i];
-            if (isDown)
-            {
-                j++;
-            }
-            else
-            {
-                j--;
-            }
-            if((j + 1) == shift)
-            {
-                isDown = false;
-            }
-            if(j == 0 && isDown == false)
-            {
-                isDown = true;
-            }
-        }
-        for(int i = 0; i < shift; i++)
-        {
-            for(int k = 0; k < pTextR.Length; k++)
-            {
-                temp = "poop" + railFence[i, k];
-                if(temp != "poop")
-                {
-                    temp2 = temp2 + railFence[i, k];
-                }
-                    
-            }
-        }
+        Debug.Log("Hurray");
     }
 
-    static void RDecrypt(string cipherText, int shift)
+    private string RDecrypt(string cipherText, int shift)
     {
         char[] cText = cipherText.ToCharArray();
         char[] pText = new char[cText.Length];
@@ -110,7 +162,7 @@ public class DecryptRailFence : MonoBehaviour {
         int nextPos, nextPos2, nextShift = 0;
         bool isSwitched = true;
         int k = 0;
-        for(int i = 0; i < shift; i++)
+        for(i = 0; i < shift; i++)
         {
             nextPos2 = i * 2;
             nextPos = firstLinePos - nextPos2;
@@ -144,5 +196,7 @@ public class DecryptRailFence : MonoBehaviour {
             }
             isSwitched = true;
         }
+        string s = new string(pText);
+        return s.ToUpper();
     }
 }
