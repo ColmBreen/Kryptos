@@ -8,7 +8,7 @@ public class FirstPersonController : MonoBehaviour
     public float movementSpeed = 5.0f;
     public float mouseSensitivity = 5.0f;
     public float jumpSpeed = 20;
-    public int isMenuActive, isDecryptingCaesar, isDecryptingVigenere, isDecryptingRailFence;
+    public int isMenuActive, isDecryptingCaesar, isDecryptingVigenere, isDecryptingRailFence, isDecryptingRailFenceKey;
 
     float verticalRotation = 0;
     public float upDownRange = 60.0f;
@@ -26,11 +26,12 @@ public class FirstPersonController : MonoBehaviour
         PlayerPrefs.SetInt("isDecryptingCaesar", 0);
         PlayerPrefs.SetInt("isDecryptingVigenere", 0);
         PlayerPrefs.SetInt("isDecryptingRailFence", 0);
+        PlayerPrefs.SetInt("isDecryptingRailFenceKey", 0);
     }
 
     private void OnGUI()
     {
-        if(isDecryptingVigenere == 1 || isMenuActive == 1 || isDecryptingRailFence == 1)
+        if(isDecryptingVigenere == 1 || isMenuActive == 1 || isDecryptingRailFence == 1 || isDecryptingRailFenceKey == 1)
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
@@ -52,7 +53,9 @@ public class FirstPersonController : MonoBehaviour
         isDecryptingCaesar = PlayerPrefs.GetInt("isDecryptingCaesar");
         isDecryptingVigenere = PlayerPrefs.GetInt("isDecryptingVigenere");
         isDecryptingRailFence = PlayerPrefs.GetInt("isDecryptingRailFence");
-        if (isMenuActive == 0 && isDecryptingCaesar == 0 && isDecryptingVigenere == 0 && isDecryptingRailFence == 0 && mainCamera.isActiveAndEnabled)
+        isDecryptingRailFenceKey = PlayerPrefs.GetInt("isDecryptingRailFenceKey");
+        if (isMenuActive == 0 && isDecryptingCaesar == 0 && isDecryptingVigenere == 0 && 
+            isDecryptingRailFence == 0 && isDecryptingRailFenceKey == 0 && mainCamera.isActiveAndEnabled)
         {
             //Rotation
             float rotLeftRight = Input.GetAxis("Mouse X") * mouseSensitivity;

@@ -6,17 +6,6 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour {
 
-    //public Canvas pauseMenu;
-    public Button yes;
-    public Button no;
-
-    // Use this for initialization
-    void Start ()
-    {
-        yes = yes.GetComponent<Button>();
-        no = no.GetComponent<Button>();
-    }
-
     public void PlayButton()
     {
         //Loads level if play is clicked

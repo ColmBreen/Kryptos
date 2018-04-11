@@ -64,6 +64,6 @@ public class PauseMenuController : MonoBehaviour {
     public void ExitButton()
     {
         //Loads level if play is clicked
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene("MainMenu");
     }
 }

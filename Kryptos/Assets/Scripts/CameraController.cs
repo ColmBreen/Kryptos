@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour {
     {
         if (PlayerPrefs.GetInt("isDecryptingCaesar") == 1 ||
             PlayerPrefs.GetInt("isDecryptingVigenere") == 1 ||
+            PlayerPrefs.GetInt("isDecryptingRailFenceKey") == 1 ||
             PlayerPrefs.GetInt("isDecryptingRailFence") == 1) 
         {
             otherCamera.enabled = true;
