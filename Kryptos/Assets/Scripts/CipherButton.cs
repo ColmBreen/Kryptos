@@ -6,21 +6,28 @@ using UnityEngine.SceneManagement;
 
 public class CipherButton : MonoBehaviour {
 
-    private string sceneName;
-
-    private void Start()
-    {
-        Scene currentScene = SceneManager.GetActiveScene();
-        sceneName = currentScene.name;
-        PlayerPrefs.SetInt("isDoneDecryptingRailFence", 0);
-        PlayerPrefs.SetInt("isDecryptingRailFenceKey", 0);
-    }
     public int i = 0;
     public Text ButtonText;
     public Text cipherText;
     public Text otherText;
     public InputField inputF;
     public Canvas pause;
+    public Canvas cipherInfo;
+
+    public static bool isFirst;
+    public static bool isCipherInfo;
+
+    private string sceneName;
+    
+
+    private void Start()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        sceneName = currentScene.name;
+        PlayerPrefs.SetInt("isDecryptingRailFenceKey", 0);
+        isCipherInfo = false;
+        isFirst = true;
+    }
 
     private void Update()
     {
@@ -28,13 +35,20 @@ public class CipherButton : MonoBehaviour {
         {
             if (ButtonText.gameObject.activeInHierarchy || cipherText.gameObject.activeInHierarchy)
             {
-                if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy))
+                if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy) && isFirst)
+                {
+                    cipherInfo.gameObject.SetActive(true);
+                    Time.timeScale = 0f;
+                    isCipherInfo = true;
+                    isFirst = false;
+                }
+                if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy) && !isCipherInfo)
                 {
                     PlayerPrefs.SetInt("isDecryptingCaesar", 1);
                     cipherText.gameObject.SetActive(true);
                     ButtonText.gameObject.SetActive(false);
                 }
-                else if (Input.GetKeyDown(KeyCode.Escape) && (!pause.gameObject.activeInHierarchy))
+                else if (Input.GetKeyDown(KeyCode.Escape) && (!pause.gameObject.activeInHierarchy) && !isCipherInfo)
                 {
                     PlayerPrefs.SetInt("isDecryptingCaesar", 0);
                     ButtonText.gameObject.SetActive(true);
@@ -46,7 +60,14 @@ public class CipherButton : MonoBehaviour {
         {
             if (ButtonText.gameObject.activeInHierarchy || cipherText.gameObject.activeInHierarchy)
             {
-                if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy))
+                if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy) && isFirst)
+                {
+                    cipherInfo.gameObject.SetActive(true);
+                    Time.timeScale = 0f;
+                    isCipherInfo = true;
+                    isFirst = false;
+                }
+                else if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy) && !isCipherInfo)
                 {
                     Debug.Log("yo " + i);
                     i++;
@@ -55,7 +76,7 @@ public class CipherButton : MonoBehaviour {
                     inputF.gameObject.SetActive(true);
                     ButtonText.gameObject.SetActive(false);
                 }
-                else if (Input.GetKeyDown(KeyCode.Escape) && cipherText.gameObject.activeInHierarchy && (!pause.gameObject.activeInHierarchy))
+                else if (Input.GetKeyDown(KeyCode.Escape) && cipherText.gameObject.activeInHierarchy && (!pause.gameObject.activeInHierarchy) && !isCipherInfo)
                 {
                     PlayerPrefs.SetInt("isDecryptingVigenere", 0);
                     ButtonText.gameObject.SetActive(true);
@@ -66,9 +87,15 @@ public class CipherButton : MonoBehaviour {
         }
         else if (sceneName == "Level3")
         {
-            if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy) && ButtonText.gameObject.activeInHierarchy)
+            if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy) && isFirst)
             {
-                //PlayerPrefs.SetInt("isDecryptingRailFence", 1);
+                cipherInfo.gameObject.SetActive(true);
+                Time.timeScale = 0f;
+                isCipherInfo = true;
+                isFirst = false;
+            }
+            else if (Input.GetMouseButtonDown(0) && (!pause.gameObject.activeInHierarchy) && ButtonText.gameObject.activeInHierarchy && !isCipherInfo)
+            {
                 PlayerPrefs.SetInt("isDecryptingRailFenceKey", 1);
                 cipherText.gameObject.SetActive(true);
                 otherText.gameObject.SetActive(true);
@@ -77,6 +104,7 @@ public class CipherButton : MonoBehaviour {
             else if (Input.GetKeyDown(KeyCode.Escape) && cipherText.gameObject.activeInHierarchy && (!pause.gameObject.activeInHierarchy))
             {
                 PlayerPrefs.SetInt("isDecryptingRailFence", 0);
+                PlayerPrefs.SetInt("isDecryptingRailFenceKey", 0);
                 otherText.gameObject.SetActive(false);
                 ButtonText.gameObject.SetActive(true);
                 Invoke("deactivateCipherText", 0.05f);

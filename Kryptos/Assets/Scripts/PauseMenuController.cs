@@ -11,7 +11,10 @@ public class PauseMenuController : MonoBehaviour {
     public Button exit;
     public Text CipherText;
     public InputField inputF;
-    string currentScene;
+
+    public static bool isMenuActive = false;
+
+    private string currentScene;
     
 
     private void Start()
@@ -30,12 +33,14 @@ public class PauseMenuController : MonoBehaviour {
             if ((Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == false))
             {
                 canvas.gameObject.SetActive(true);
-                PlayerPrefs.SetInt("isMenuActive", 1);
+                Time.timeScale = 0f;
+                isMenuActive = true;
             }
             else if (Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy == true)
             {
                 canvas.gameObject.SetActive(false);
-                PlayerPrefs.SetInt("isMenuActive", 0);
+                Time.timeScale = 1f;
+                isMenuActive = false;
             }
         }
         else if (currentScene != "Main Menu")
@@ -44,13 +49,15 @@ public class PauseMenuController : MonoBehaviour {
                 (!CipherText.gameObject.activeInHierarchy))
             {
                 canvas.gameObject.SetActive(true);
-                PlayerPrefs.SetInt("isMenuActive", 1);
+                Time.timeScale = 0f;
+                isMenuActive = true;
             }
             else if (Input.GetKeyDown(KeyCode.Escape) && canvas.gameObject.activeInHierarchy &&
                 (!CipherText.gameObject.activeInHierarchy))
             {
                 canvas.gameObject.SetActive(false);
-                PlayerPrefs.SetInt("isMenuActive", 0);
+                Time.timeScale = 1f;
+                isMenuActive = false;
             }
         }
 	}
@@ -58,7 +65,8 @@ public class PauseMenuController : MonoBehaviour {
     public void ResumeButton()
     {
         canvas.gameObject.SetActive(false);
-        PlayerPrefs.SetInt("isMenuActive", 0);
+        Time.timeScale = 1f;
+        isMenuActive = false;
     }
 
     public void ExitButton()

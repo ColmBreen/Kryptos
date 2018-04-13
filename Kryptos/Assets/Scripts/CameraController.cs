@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour {
     
     Camera mainCamera;
     public Camera otherCamera;
+    public static bool isMainCameraActive = true;
 
     void Start()
     {
@@ -23,11 +24,13 @@ public class CameraController : MonoBehaviour {
         {
             otherCamera.enabled = true;
             mainCamera.enabled = false;
+            isMainCameraActive = false;
         }
         else
         {
             mainCamera.enabled = true;
             otherCamera.enabled = false;
+            isMainCameraActive = true;
         }
     }
 }

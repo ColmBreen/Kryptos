@@ -9,6 +9,8 @@ public class MainMenu : MonoBehaviour {
     public void PlayButton()
     {
         //Loads level if play is clicked
+        PauseMenuController.isMenuActive = false;
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Level0");
     }
 

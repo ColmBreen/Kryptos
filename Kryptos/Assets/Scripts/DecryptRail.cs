@@ -58,6 +58,7 @@ public class DecryptRail : MonoBehaviour {
         }
         else if(PlayerPrefs.GetInt("isDecryptingRailFence") == 1 && !doneLetters)
         {
+            Debug.Log("Instantiate Letters");
             j = 0;
             k = -((cipherString.text.Length - 1) / 2);
             for (i = 0; i < cipherString.text.Length; i++)
